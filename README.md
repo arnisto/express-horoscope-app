@@ -21,15 +21,19 @@ A Node.js Express application that determines zodiac signs based on birthdates a
 
 ## Installation
 
-git clone https://github.com/your-username/horoscope-code.git
-cd horoscope-code
+git clone https://github.com/arnisto/express-horoscope-app.git
+cd express-horoscope-app
 npm install
+or
+yarn
 
 ## Usage
 
 ### Local Development
 
 npm run start
+or
+yarn start
 
 Access the API at: `http://localhost:3000/api/v1/horoscope?birthdate=YYYY-MM-DD`
 
@@ -37,8 +41,8 @@ Access the API at: `http://localhost:3000/api/v1/horoscope?birthdate=YYYY-MM-DD`
 
 Build and run the container:
 
-docker build -t horoscope-code .
-docker run -p 3000:3000 horoscope-code
+docker build -t express-horoscope-app .
+docker run -p 3000:3000 express-horoscope-app
 
 ## API Endpoints
 
@@ -51,8 +55,8 @@ Parameters:
 Response:
 
 {
-"zodiacSign": "Leo",
-"horoscope": "Today is your lucky day..."
+"sign": "Pisces",
+"zodiac": "Pig",
 }
 
 ## Testing
@@ -60,6 +64,8 @@ Response:
 Run the test suite:
 
 npm test
+or
+yarn test
 
 ## Docker Support
 

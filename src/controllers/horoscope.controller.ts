@@ -27,9 +27,9 @@ export const getHoroscope = (req: any, res: any): any => {
     // Get Chinese zodiac animal based on year
     const zodiac = horoscope.getZodiac(year);
 
-    return res.status(200).json({ sign, zodiac, year, month, day });
+    return res.status(200).json({ sign, zodiac });
   } catch (error) {
-    // Handle specific Error instances with their messages 
+    // Handle specific Error instances with their messages
     if (error instanceof Error) {
       return res.status(400).json({
         error: error.message,
