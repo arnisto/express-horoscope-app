@@ -21,7 +21,7 @@ const cors = require("cors");
 
 const xss = require("xss-clean");
 
-const PORT = 3000;
+const PORT = 3001;
 
 const app: Application = express();
 
@@ -45,7 +45,7 @@ app.use(limiter);
 // Enable CORS for specific domains
 app.use(
   cors({
-    origin: "http://localhost",
+    origin: ["http://localhost", "https://express-horoscope-app.onrender.com/"],
     methods: ["GET"],
   })
 );
