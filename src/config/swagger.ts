@@ -14,7 +14,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://express-horoscope-app.onrender.com",
         description: "Local Development Server",
       },
     ],
