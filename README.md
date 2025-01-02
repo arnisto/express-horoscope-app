@@ -13,6 +13,10 @@ A Node.js Express application that determines zodiac signs based on birthdates a
 - Comprehensive test suite
 - Automated builds via GitHub Actions
 
+## Deployment
+
+https://express-horoscope-app.onrender.com/api/v1/horoscope?birthdate=2019-02-28
+
 ## Prerequisites
 
 - Node.js (v16 or higher)

@@ -30,6 +30,7 @@ export const parseDate = (
   // NOTE : Date object in JavaScript automatically normalizes invalid dates.
   // For example, if you pass 2019-02-29 to the Date constructor,
   // it becomes 2019-03-01 because February 29 does not exist in 2019
+  // for that we need to test if the year is a leap year before using Date
   if (month === 2 && day === 29 && !isLeapYear(year)) {
     throw new Error("Invalid date: February 29 on a non-leap year.");
   }
@@ -62,10 +63,6 @@ export const parseDate = (
  * isLeapYear(2024)
  * // returns false
  * isLeapYear(2023)
- * // returns true
- * isLeapYear(2000)
- * // returns false
- * isLeapYear(1900)
  */
 export const isLeapYear = (year: number): boolean => {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;

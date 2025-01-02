@@ -13,6 +13,8 @@ import rateLimit from "express-rate-limit";
 import swaggerSpec from "./config/swagger";
 import swaggerUi from "swagger-ui-express";
 
+const path = require("path");
+
 const compression = require("compression");
 
 const cors = require("cors");
@@ -47,6 +49,8 @@ app.use(
     methods: ["GET"],
   })
 );
+// Serve static files from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // Swagger documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -1,6 +1,7 @@
+import { Request, Response } from "express";
+
 import { parseDate } from "../utils/date.util";
 
-// Import the horoscope library for zodiac sign and Chinese zodiac calculations
 const horoscope = require("horoscope");
 
 /**
@@ -9,14 +10,11 @@ const horoscope = require("horoscope");
  * @param res Express response object
  * @returns JSON response with zodiac information or error message
  */
-export const getHoroscope = (req: any, res: any): any => {
+export const getHoroscope = (
+  req: Request | any,
+  res: Response | any
+): Response | any => {
   const { birthdate } = req.query;
-  // Validate that birthdate is provided and is a string
-  if (!birthdate || typeof birthdate !== "string") {
-    return res
-      .status(400)
-      .json({ error: "Birthdate query parameter is required." });
-  }
 
   try {
     // Parse the birthdate string into year, month, and day components

@@ -11,6 +11,7 @@
     "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
     "horoscope": "^2.0.1",
+    "path": "^0.12.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "xss-clean": "^0.1.4"
