@@ -16,6 +16,7 @@ export const parseDate = (
 ): { year: number; month: number; day: number } => {
   // Validate the input format explicitly
   const dateRegex = /^\d{4}-(\d{2})-(\d{2})$/;
+
   const match = birthdate.match(dateRegex);
 
   if (!match) {

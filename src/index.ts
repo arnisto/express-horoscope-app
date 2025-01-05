@@ -1,4 +1,3 @@
-// TODO: Implement JWT authentication middleware for secure user authorization
 // TODO: Implement comprehensive error handling middleware with logging and monitoring capabilities
 // NOTE: Application must be served over HTTPS for production deployment
 
@@ -7,11 +6,15 @@
 
 import express, { Application } from "express";
 
+import authRouter from "./routes/auth.routes";
+import connectDB from "./config/db";
 import helmet from "helmet";
-import { horoscopeRouter } from "./routes/horoscope.routes";
+import horoscopeRouter from "./routes/horoscope.routes";
 import rateLimit from "express-rate-limit";
 import swaggerSpec from "./config/swagger";
 import swaggerUi from "swagger-ui-express";
+
+require("dotenv").config(); // Load environment variables
 
 const path = require("path");
 
@@ -46,20 +49,46 @@ app.use(limiter);
 app.use(
   cors({
     origin: ["http://localhost", "https://express-horoscope-app.onrender.com/"],
-    methods: ["GET"],
+    methods: ["GET", "POST"],
   })
 );
+export default app;
+// Middleware to parse incoming JSON requests
+app.use(express.json());
+connectDB();
 // Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // Swagger documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Auth/user routes
+app.use("/api/v1/auth", authRouter);
+
 // Horoscope routes
 app.use("/api/v1/horoscope", horoscopeRouter);
 
+// Middleware to catch unhandled routes
+app.use((req, res, next) => {
+  res.status(404).json({
+    status: "404",
+    message: `The route ${req.originalUrl} does not exist.`,
+  });
+});
+
+// Centralized error handler
+app.use((err: any, req, res: any) => {
+  const status = err.status || 500;
+  res.status(status).json({
+    error: err.name || "InternalServerError",
+    message: err.message || "Something went wrong!",
+  });
+});
+
 app.listen(PORT, () => {
-  console.log(
-    `Server is running on https://express-horoscope-app.onrender.com/:${PORT}`
+  console.info(
+    `Server is running on : ${
+      process.env.BACKEND_URL || "https://express-horoscope-app.onrender.com"
+    }`
   );
 });

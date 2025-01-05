@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main # Trigger this workflow on pull requests to the main branch
-
 jobs:
   test:
     runs-on: ubuntu-latest

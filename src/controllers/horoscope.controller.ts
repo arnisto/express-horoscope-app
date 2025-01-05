@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 
-import { parseDate } from "../utils/date.util";
-
-const horoscope = require("horoscope");
+import { birthdateValidator } from "../validators/birthdateValidator";
+import { getHoroscopeService } from "../services/horoscope.service";
 
 /**
  * Controller to get both Western zodiac sign and Chinese zodiac based on birthdate
@@ -10,33 +9,26 @@ const horoscope = require("horoscope");
  * @param res Express response object
  * @returns JSON response with zodiac information or error message
  */
-export const getHoroscope = (
-  req: Request | any,
-  res: Response | any
-): Response | any => {
+export const getHoroscope = (req: Request, res: Response): void => {
   const { birthdate } = req.query;
 
   try {
-    // Parse the birthdate string into year, month, and day components
-    const { year, month, day } = parseDate(birthdate);
-
-    // Get Western zodiac sign based on month and day
-    const sign = horoscope.getSign({ month, day });
-    // Get Chinese zodiac animal based on year
-    const zodiac = horoscope.getZodiac(year);
-
-    return res.status(200).json({ sign, zodiac });
-  } catch (error) {
-    // Handle specific Error instances with their messages
-    if (error instanceof Error) {
-      return res.status(400).json({
-        error: error.message,
-      });
+    const { error } = birthdateValidator.validate({ birthdate });
+    if (error) {
+      throw new Error(error.details[0].message);
     }
+    // Use the service to get the zodiac details
+    const { sign, zodiac } = getHoroscopeService(birthdate as string);
 
-    // Handle unknown error types with a generic message
-    return res.status(400).json({
-      error: "An unexpected error occurred.",
+    res.status(200).json({ sign, zodiac });
+  } catch (error) {
+    console.error("Error in getHoroscope:", error);
+
+    res.status(400).json({
+      error:
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred.",
     });
   }
 };

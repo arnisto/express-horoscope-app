@@ -14,7 +14,9 @@ const options = {
     },
     servers: [
       {
-        url: "https://express-horoscope-app.onrender.com",
+        url:
+          process.env.BACKEND_URL ||
+          `http://localhost:${process.env.PORT || 3000}`,
         description: "Local Development Server",
       },
     ],

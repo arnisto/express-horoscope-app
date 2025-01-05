@@ -6,8 +6,15 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
 
-  "include": ["src/types/*.d.ts", "src/**/*"]
+  "include": [
+    "src/types/*.d.ts",
+    "src/types/**/*.d.ts",
+    "src/**/*",
+    "express.d.ts"
+  ],
+  "exclude": ["node_modules"]
 }

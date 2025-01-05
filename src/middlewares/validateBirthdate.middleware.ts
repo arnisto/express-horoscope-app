@@ -12,16 +12,15 @@ import { parseDate } from "../utils/date.util";
  * @throws {Error} Throws error if date parsing fails
  */
 export function validateBirthdate(
-  req: Request | any,
-  res: Response | any,
-  next: NextFunction | any
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) {
   const { birthdate } = req.query;
 
   if (!birthdate || typeof birthdate !== "string") {
-    return res
-      .status(400)
-      .json({ error: "Birthdate query parameter is required." });
+    res.status(400).json({ error: "Birthdate query parameter is required." });
+    return;
   }
 
   try {
@@ -33,13 +32,15 @@ export function validateBirthdate(
   } catch (error) {
     if (error instanceof Error) {
       // If parseDate throws an error
-      return res.status(400).json({
+      res.status(400).json({
         error: error.message || "Invalid birthdate format. Use YYYY-MM-DD.",
       });
+      return;
     }
     // Generic error handling
-    return res.status(400).json({
+    res.status(400).json({
       error: "Invalid birthdate format. Use YYYY-MM-DD.",
     });
+    return;
   }
 }
