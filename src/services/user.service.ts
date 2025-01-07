@@ -5,10 +5,10 @@ import {
   UnauthorizedError,
 } from "../errors";
 
+import { v4 as uuidv4 } from "uuid";
 import User from "../models/user.model";
 import { loginValidator } from "../validators/loginValidator";
 import { registerValidator } from "../validators/registerValidator";
-import { v4 as uuidv4 } from "uuid";
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
@@ -49,7 +49,6 @@ export const loginUserService = async (email: string, password: string) => {
 };
 
 export const generateApiKeyService = async (userId: string) => {
-  console.log("userId:", userId);
   const user = await User.findById(userId);
   if (!user) {
     throw new NotFoundError("User not found");

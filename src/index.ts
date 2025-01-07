@@ -1,18 +1,17 @@
-// TODO: Implement comprehensive error handling middleware with logging and monitoring capabilities
 // NOTE: Application must be served over HTTPS for production deployment
-
 // NOTE: Caching mechanism not required at the moment as the horoscope package implements memoization via lodash,
 // providing optimal performance through function-level result caching
+// Future enhancements: support for multiple languages/translations and additional input formats
 
 import express, { Application } from "express";
 
-import authRouter from "./routes/auth.routes";
-import connectDB from "./config/db";
-import helmet from "helmet";
-import horoscopeRouter from "./routes/horoscope.routes";
 import rateLimit from "express-rate-limit";
-import swaggerSpec from "./config/swagger";
+import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
+import connectDB from "./config/db";
+import swaggerSpec from "./config/swagger";
+import authRouter from "./routes/auth.routes";
+import horoscopeRouter from "./routes/horoscope.routes";
 
 require("dotenv").config(); // Load environment variables
 

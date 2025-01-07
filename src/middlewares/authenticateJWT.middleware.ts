@@ -12,7 +12,6 @@ export const authenticateJWT = (
   next: NextFunction
 ) => {
   const token = req.header("Authorization")?.split(" ")[1];
-  console.log("Token:", token);
   if (!token) {
     console.error("No token provided");
     res.status(401).json({ error: "Unauthorized" });

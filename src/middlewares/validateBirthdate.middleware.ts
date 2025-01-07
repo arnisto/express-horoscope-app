@@ -30,16 +30,12 @@ export function validateBirthdate(
     // If valid, continue to the next handler
     next();
   } catch (error) {
-    if (error instanceof Error) {
-      // If parseDate throws an error
-      res.status(400).json({
-        error: error.message || "Invalid birthdate format. Use YYYY-MM-DD.",
-      });
-      return;
-    }
     // Generic error handling
     res.status(400).json({
-      error: "Invalid birthdate format. Use YYYY-MM-DD.",
+      error:
+        error instanceof Error
+          ? error.message
+          : "Invalid birthdate format. Use YYYY-MM-DD.",
     });
     return;
   }

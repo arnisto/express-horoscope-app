@@ -5,8 +5,8 @@ import {
   registerUserService,
 } from "../services/user.service";
 
-import { AuthenticatedRequest } from "../middlewares/authenticateJWT.middleware";
 import { HoroscopeError } from "../errors";
+import { AuthenticatedRequest } from "../middlewares/authenticateJWT.middleware";
 
 export const registerNewUser = async (req: Request, res: Response) => {
   const { username, email, password } = req.body || {};
@@ -39,7 +39,6 @@ export const generateApiKey = async (
   res: Response
 ) => {
   try {
-    console.log("User ID v1 :", req.user.id);
     const result: { apiKey: string } = await generateApiKeyService(req.user.id);
     res.json(result);
   } catch (error) {

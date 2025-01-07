@@ -4,8 +4,11 @@ import {
   registerNewUser,
 } from "../controllers/auth.controller";
 
-import { authenticateJWT } from "../middlewares/authenticateJWT.middleware";
 import express from "express";
+import { validateBody } from "express-joi-validations";
+import { authenticateJWT } from "../middlewares/authenticateJWT.middleware";
+import { loginValidator } from "../validators/loginValidator";
+import { registerValidator } from "../validators/registerValidator";
 
 const authRouter = express.Router();
 
@@ -50,7 +53,7 @@ const authRouter = express.Router();
  *       409:
  *         description: Email already exists
  */
-authRouter.post("/register", registerNewUser);
+authRouter.post("/register", validateBody(registerValidator), registerNewUser);
 
 /**
  * @swagger
@@ -91,7 +94,7 @@ authRouter.post("/register", registerNewUser);
  *       401:
  *         description: Invalid credentials
  */
-authRouter.post("/login", login);
+authRouter.post("/login", validateBody(loginValidator), login);
 
 /**
  * @swagger
@@ -102,19 +105,6 @@ authRouter.post("/login", login);
  *     description: Generate a new API key for authenticated user
  *     security:
  *       - bearerAuth: []
-
-
-
-
-
-
-
-
-
-
-
-
-
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -141,7 +131,8 @@ authRouter.post("/login", login);
  *         description: Unauthorized
  *       400:
  *         description: Invalid input
+ */
 
- */ authRouter.post("/generate-api-key", authenticateJWT, generateApiKey);
+authRouter.post("/generate-api-key", authenticateJWT, generateApiKey);
 
 export default authRouter;

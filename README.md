@@ -4,6 +4,8 @@
 
 A Node.js Express application that determines zodiac signs based on birthdates and generates horoscopes using the horoscope library.
 
+The HoroscopeCode project is a secure, tested, and containerized application that meets the basic requirements. Tests are included, and the data is protected by JWT and API keys. Finally, a GitHub action is set up to automate the Dockerfile build.
+
 ## Features
 
 - RESTful API endpoint for zodiac sign determination
